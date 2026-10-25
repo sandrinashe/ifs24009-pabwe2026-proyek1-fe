@@ -5,7 +5,7 @@ import * as itineraryApi from "../api/itineraryApi";
 import * as expenseApi from "../api/expenseApi";
 import type { Trip, TripDetail, TripPayload } from "../api/tripApi";
 import type { Itinerary, ItineraryPayload } from "../api/itineraryApi";
-import type { Expense, ExpensePayload } from "../api/expenseApi";
+import type { Expense, ExpensePayload, ExpenseWithTrip } from "../api/expenseApi";
 import {
   showErrorDialog,
   showSuccessDialog,
@@ -16,6 +16,7 @@ export const useTripsStore = defineStore("trips", () => {
   const current = ref<TripDetail | null>(null);
   const itineraries = ref<Itinerary[]>([]);
   const expenses = ref<Expense[]>([]);
+  const allExpenses = ref<ExpenseWithTrip[]>([]);
   const isLoading = ref(false);
 
   /** Menjalankan aksi async; error ditampilkan lewat dialog dan dikembalikan sebagai false. */
@@ -43,6 +44,11 @@ export const useTripsStore = defineStore("trips", () => {
   const asyncFetchTrips = () =>
     withLoading(async () => {
       trips.value = await tripApi.getTrips();
+    });
+
+  const asyncFetchAllExpenses = () =>
+    withLoading(async () => {
+      allExpenses.value = await expenseApi.getAllExpenses();
     });
 
   const asyncFetchTripDetail = (id: number) =>
@@ -114,8 +120,10 @@ export const useTripsStore = defineStore("trips", () => {
     current,
     itineraries,
     expenses,
+    allExpenses,
     isLoading,
     asyncFetchTrips,
+    asyncFetchAllExpenses,
     asyncFetchTripDetail,
     asyncSaveTrip,
     asyncDeleteTrip,

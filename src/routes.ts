@@ -28,6 +28,16 @@ export const routes: RouteRecordRaw[] = [
         component: () => import("./features/trips/pages/HomePage.vue"),
       },
       {
+        path: "expenses",
+        name: "expenses",
+        component: () => import("./features/trips/pages/ExpensesPage.vue"),
+      },
+      {
+        path: "profile",
+        name: "profile",
+        component: () => import("./features/trips/pages/ProfilePage.vue"),
+      },
+      {
         path: "trips/:tripId",
         name: "trip-detail",
         component: () => import("./features/trips/pages/DetailPage.vue"),

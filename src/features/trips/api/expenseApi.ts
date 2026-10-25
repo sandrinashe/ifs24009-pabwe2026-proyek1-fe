@@ -9,12 +9,18 @@ export interface Expense {
   category: string;
 }
 
+export interface ExpenseWithTrip extends Expense {
+  trip_title: string;
+}
+
 export interface ExpensePayload {
   name: string;
   amount: number;
   date: string;
   category: string;
 }
+
+export const getAllExpenses = () => apiFetch<ExpenseWithTrip[]>("/expenses");
 
 export const getExpenses = (tripId: number) =>
   apiFetch<Expense[]>(`/expenses/trip/${tripId}`);

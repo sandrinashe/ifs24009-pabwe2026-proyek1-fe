@@ -19,6 +19,8 @@ export const testRoutes: RouteRecordRaw[] = [
   { path: "/auth/login", component: Stub },
   { path: "/auth/register", component: Stub },
   { path: "/trips/:tripId", component: Stub },
+  { path: "/expenses", component: Stub },
+  { path: "/profile", component: Stub },
 ];
 
 export const createMockPinia = (): Pinia => {

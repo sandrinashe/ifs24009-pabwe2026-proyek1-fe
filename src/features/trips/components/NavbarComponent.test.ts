@@ -29,4 +29,23 @@ describe("NavbarComponent", () => {
     expect(auth.user).toBeNull();
     expect(router.currentRoute.value.path).toBe("/auth/login");
   });
+
+  it("menampilkan tautan navigasi ke perjalanan, pengeluaran, dan profil", async () => {
+    const { wrapper } = await renderWithProviders(NavbarComponent);
+    const links = wrapper.findAll('[data-testid="nav-link"]');
+    expect(links.map((l) => l.attributes("href"))).toEqual(["/", "/expenses", "/profile"]);
+    expect(wrapper.find("nav").attributes("aria-label")).toBe("Navigasi utama");
+  });
+
+  it("menandai tautan aktif sesuai halaman (beranda dan halaman lain)", async () => {
+    const home = await renderWithProviders(NavbarComponent, { route: "/" });
+    const homeLinks = home.wrapper.findAll('[data-testid="nav-link"]');
+    expect(homeLinks[0].classes()).toContain("!bg-brand-50");
+    expect(homeLinks[1].classes()).not.toContain("!bg-brand-50");
+
+    const expenses = await renderWithProviders(NavbarComponent, { route: "/expenses" });
+    const expenseLinks = expenses.wrapper.findAll('[data-testid="nav-link"]');
+    expect(expenseLinks[0].classes()).not.toContain("!bg-brand-50");
+    expect(expenseLinks[1].classes()).toContain("!bg-brand-50");
+  });
 });

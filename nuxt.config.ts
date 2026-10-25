@@ -40,6 +40,13 @@ export default defineNuxtConfig({
   app: {
     head: {
       title: "TripBuddy",
+      meta: [
+        {
+          name: "description",
+          content:
+            "TripBuddy: aplikasi perencana perjalanan dan pengelola anggaran wisata. Susun agenda harian dan catat pengeluaran liburanmu.",
+        },
+      ],
       htmlAttrs: {
         lang: "id",
       },

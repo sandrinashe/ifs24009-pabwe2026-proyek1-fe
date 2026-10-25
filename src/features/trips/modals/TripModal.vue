@@ -60,7 +60,7 @@ async function onSubmit() {
         <h2 class="text-lg font-extrabold">
           {{ trip ? "Ubah Perjalanan" : "Perjalanan Baru" }}
         </h2>
-        <button type="button" class="rounded-lg p-1 text-slate-400 hover:bg-slate-100" aria-label="Tutup" @click="emit('close')">
+        <button type="button" class="rounded-lg p-1 text-slate-600 hover:bg-slate-100" aria-label="Tutup" @click="emit('close')">
           <X :size="20" />
         </button>
       </div>
@@ -94,7 +94,7 @@ async function onSubmit() {
         <div class="mt-2 h-24 overflow-hidden rounded-xl bg-slate-100" data-testid="cover-preview">
           <TripCover :src="form.cover_image.trim() || null" :trip-id="trip?.id ?? 0" alt="Pratinjau sampul" />
         </div>
-        <p class="mt-1 text-xs text-slate-400">Kosongkan untuk memakai ilustrasi bawaan.</p>
+        <p class="mt-1 text-xs text-slate-600">Kosongkan untuk memakai ilustrasi bawaan.</p>
       </div>
 
       <div class="flex justify-end gap-2 pt-2">

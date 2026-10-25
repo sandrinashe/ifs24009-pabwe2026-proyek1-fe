@@ -3,6 +3,12 @@ import { RouterLink, useRouter } from "vue-router";
 import { LogOut, Plane } from "lucide-vue-next";
 import { useAuthStore } from "../../auth/states/authStore";
 
+const links = [
+  { to: "/", label: "Perjalanan" },
+  { to: "/expenses", label: "Pengeluaran" },
+  { to: "/profile", label: "Profil" },
+];
+
 const router = useRouter();
 const auth = useAuthStore();
 
@@ -23,6 +29,19 @@ function onLogout() {
         </span>
         TripBuddy
       </RouterLink>
+      <nav aria-label="Navigasi utama" class="flex items-center gap-1 text-sm font-semibold">
+        <RouterLink
+          v-for="link in links"
+          :key="link.to"
+          :to="link.to"
+          class="rounded-lg px-3 py-2 text-slate-600 hover:bg-slate-100"
+          :exact-active-class="link.to === '/' ? '!bg-brand-50 !text-brand-700' : ''"
+          :active-class="link.to === '/' ? '' : '!bg-brand-50 !text-brand-700'"
+          data-testid="nav-link"
+        >
+          {{ link.label }}
+        </RouterLink>
+      </nav>
       <div class="flex items-center gap-3">
         <span class="hidden text-sm font-medium text-slate-600 sm:inline" data-testid="user-name">
           {{ auth.user?.name }}

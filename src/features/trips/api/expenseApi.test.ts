@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { apiFetch } from "../../../helpers/apiHelper";
-import { createExpense, deleteExpense, getExpenses } from "./expenseApi";
+import { createExpense, deleteExpense, getAllExpenses, getExpenses } from "./expenseApi";
 
 vi.mock("../../../helpers/apiHelper", () => ({ apiFetch: vi.fn() }));
 
@@ -14,6 +14,11 @@ const payload = {
 describe("expenseApi", () => {
   beforeEach(() => {
     vi.mocked(apiFetch).mockResolvedValue("hasil");
+  });
+
+  it("getAllExpenses -> GET /expenses", async () => {
+    expect(await getAllExpenses()).toBe("hasil");
+    expect(apiFetch).toHaveBeenCalledWith("/expenses");
   });
 
   it("getExpenses -> GET /expenses/trip/:tripId", async () => {

@@ -68,6 +68,23 @@ describe("tripsStore", () => {
     });
   });
 
+  describe("asyncFetchAllExpenses", () => {
+    it("mengisi seluruh pengeluaran lintas perjalanan", async () => {
+      vi.mocked(expenseApi.getAllExpenses).mockResolvedValue([
+        { ...makeExpense({ id: 9 }), trip_title: "Liburan Bali" },
+      ]);
+      expect(await store.asyncFetchAllExpenses()).toBe(true);
+      expect(store.allExpenses.map((e) => e.id)).toEqual([9]);
+      expect(store.isLoading).toBe(false);
+    });
+
+    it("menampilkan error jika gagal", async () => {
+      vi.mocked(expenseApi.getAllExpenses).mockRejectedValue(new Error("Gagal"));
+      expect(await store.asyncFetchAllExpenses()).toBe(false);
+      expect(showErrorDialog).toHaveBeenCalledWith("Gagal");
+    });
+  });
+
   it("asyncFetchTripDetail memuat detail, agenda, dan pengeluaran", async () => {
     expect(await store.asyncFetchTripDetail(1)).toBe(true);
     expect(tripApi.getTrip).toHaveBeenCalledWith(1);
