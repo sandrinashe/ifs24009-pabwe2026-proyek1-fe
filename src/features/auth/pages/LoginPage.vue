@@ -22,12 +22,14 @@ async function onSubmit() {
 <template>
   <form class="space-y-4" @submit.prevent="onSubmit">
     <div>
-      <label class="label-field" for="login-email">Alamat Email</label>
+      <label class="label-field" for="username">Alamat Email</label>
       <div class="relative">
         <Mail :size="16" class="absolute left-3 top-3.5 text-slate-600" />
         <input
-          id="login-email"
+          id="username"
+          name="username"
           type="email"
+          autocomplete="username"
           required
           placeholder="nama@email.com"
           class="input-field pl-9"
@@ -37,12 +39,14 @@ async function onSubmit() {
       </div>
     </div>
     <div>
-      <label class="label-field" for="login-password">Kata Sandi</label>
+      <label class="label-field" for="password">Kata Sandi</label>
       <div class="relative">
         <Lock :size="16" class="absolute left-3 top-3.5 text-slate-600" />
         <input
-          id="login-password"
+          id="password"
+          name="password"
           type="password"
+          autocomplete="current-password"
           required
           placeholder="••••••••"
           class="input-field pl-9"
@@ -51,7 +55,7 @@ async function onSubmit() {
         />
       </div>
     </div>
-    <button type="submit" class="btn-primary w-full" :disabled="isSubmitting">
+    <button id="btn-submit" type="submit" class="btn-primary w-full" :disabled="isSubmitting">
       <LogIn :size="16" />
       {{ isSubmitting ? "Memproses..." : "Masuk Sekarang" }}
     </button>

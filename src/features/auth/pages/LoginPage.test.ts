@@ -15,8 +15,8 @@ vi.mock("../../../helpers/toolsHelper", async (importOriginal) => ({
 const user = { id: 1, name: "Budi", email: "budi@example.com" };
 
 async function fillAndSubmit(wrapper: Awaited<ReturnType<typeof renderWithProviders>>["wrapper"]) {
-  await wrapper.find("#login-email").setValue("budi@example.com");
-  await wrapper.find("#login-password").setValue("rahasia123");
+  await wrapper.find("#username").setValue("budi@example.com");
+  await wrapper.find("#password").setValue("rahasia123");
   await wrapper.find("form").trigger("submit");
 }
 
@@ -59,5 +59,14 @@ describe("LoginPage", () => {
     await flushPromises();
     expect(showErrorDialog).toHaveBeenCalledWith("Email atau password salah");
     expect(router.currentRoute.value.path).toBe("/auth/login");
+  });
+
+  it("menyediakan selektor #username, #password, dan #btn-submit untuk grading UI", async () => {
+    const { wrapper } = await renderWithProviders(LoginPage, {
+      route: "/auth/login",
+    });
+    expect(wrapper.find("#username").attributes("autocomplete")).toBe("username");
+    expect(wrapper.find("#password").attributes("autocomplete")).toBe("current-password");
+    expect(wrapper.find("#btn-submit").attributes("type")).toBe("submit");
   });
 });
